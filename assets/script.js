@@ -80,7 +80,9 @@ Option4.addEventListener('click', function () {
     displayQuestions()
 })
 
+function checkAnswer(){
 
+}
 
 
 function displayQuestions() {
@@ -93,3 +95,4 @@ function displayQuestions() {
 
 // function to check the answer (if statement -5 from time if incorrect)
 // function set interval (change inner.text to time left) (if timeleft = 0 || if index >= 5 then (then show form and end quiz))
+// start a function to count down time
