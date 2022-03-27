@@ -134,15 +134,9 @@ function startTimer(){
             clearInterval(intervalId)
             gameOver()
         }
-
-        
     }, 1000)
 }
 
 function quizStart() {
     startTimer()
 }
-
-// quizStart()
-
-// function set interval (change inner.text to time left) (if timeleft = 0 || if index >= 5 then (then show form and end quiz))
