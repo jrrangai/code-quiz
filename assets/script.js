@@ -1,10 +1,10 @@
-var timeLeft = 3
+var timeLeft = 20
 var time =timeLeft
 var intervalId
+var score = 0
+
 var timerEl = document.getElementById('timer')
-
-score = 0
-
+var scoreEl = document.getElementById('score')
 var startButton = document.getElementById('startBtn')
 
 var index = 0
@@ -16,78 +16,93 @@ var Option4= document.getElementById('option4')
 var quizBox = document.getElementById('quiz')
 var question = [
     {
-        Question:"Q1",
-        Option1:"A",
-        Option2:"B",
-        Option3:"C",
-        Option4:"D",
-        RightAnswer: "A", 
+        Question:"What does HTML stand for?",
+        Option1:"Hyper Text Markup Language",
+        Option2:"Hyperlinks and Text Markup Language",
+        Option3:"Home Tool Markup Langauge",
+        Option4:"Hover Til Mouse Links",
+        RightAnswer: "Hyper Text Markup Language", 
     },
     {
-        Question:"Q2",
-        Option1:"A",
-        Option2:"B",
-        Option3:"C",
-        Option4:"D",
-        RightAnswer: "D", 
+        Question:"What does CSS stand for?",
+        Option1:"Computer Style Sheets",
+        Option2:"Creative Style Sheets",
+        Option3:"Colorful Style Sheets",
+        Option4:"Cascading Style Sheets",
+        RightAnswer: "Cascading Style Sheets", 
     },
     {
-        Question:"Q3",
-        Option1:"A",
-        Option2:"B",
-        Option3:"C",
-        Option4:"D",
-        RightAnswer: "C", 
+        Question:"What is the correct place to insert a JavaScript?",
+        Option1:"Both the <head> section and the <body> section are correct",
+        Option2:"The <head> section",
+        Option3:"The <body> section",
+        Option4:"Right above your CSS link",
+        RightAnswer: "The <body> section", 
     },
     {
-        Question:"Q4",
-        Option1:"A",
-        Option2:"B",
-        Option3:"C",
-        Option4:"D",
-        RightAnswer: "A", 
+        Question:"Which sign does jQuery use as a shortcut for jQuery?",
+        Option1:"$",
+        Option2:"J@",
+        Option3:"%",
+        Option4:"#",
+        RightAnswer: "$", 
     },
     {
-        Question:"Q5",
-        Option1:"A",
-        Option2:"B",
-        Option3:"C",
-        Option4:"D",
-        RightAnswer: "B", 
+        Question:"The Bootstrap grid system is based on how many columns?",
+        Option1:"9",
+        Option2:"12",
+        Option3:"6",
+        Option4:"4",
+        RightAnswer: "12", 
     },
 ]
 
-
-
 startButton.addEventListener('click', function() {
+    quizStart()
     displayQuestions()
     quizBox.setAttribute("style", "display: flex")
     startButton.setAttribute("style", "display: none")
 })
 
-Option1.addEventListener('click', function () {
+Option1.addEventListener('click', function (event) {
     // call checkAnswer Function
-    index++;
-    displayQuestions()
+    checkAnswer(event.target.innerText );
+    // index++;
 })
 
-Option2.addEventListener('click', function () {
-    index++;
-    displayQuestions()
+Option2.addEventListener('click', function (event) {
+    checkAnswer(event.target.innerText);
+    // index++;
 })
 
-Option3.addEventListener('click', function () {
-    index++;
-    displayQuestions()
+Option3.addEventListener('click', function (event) {
+    checkAnswer(event.target.innerText);
+    // index++;
 })
 
-Option4.addEventListener('click', function () {
-    index++;
-    displayQuestions()
+Option4.addEventListener('click', function (event) {
+    checkAnswer(event.target.innerText);
+    // index++;
 })
 
-function checkAnswer(){
+function checkAnswer(correctAnswer){
+    
+    if (correctAnswer === question[index].RightAnswer) {
+        score++
+        alert('Correct!')
+    } else {
+        score--
+        alert('Wrong!')
+    }
 
+    scoreEl.innerText = "Score: " + score
+
+    if (index > question.length - 2) {
+        gameOver()
+    } else {
+        index++;
+        displayQuestions()
+    }
 }
 
 
@@ -114,11 +129,13 @@ function gameOver() {
 function startTimer(){
     intervalId = setInterval(function () {
         time --
-        timerEl.innerText = "timer " + time
-        if (time === 0) {
+        timerEl.innerText = "Timer: " + time
+        if (time === 0 ) {
             clearInterval(intervalId)
             gameOver()
         }
+
+        
     }, 1000)
 }
 
@@ -126,8 +143,6 @@ function quizStart() {
     startTimer()
 }
 
-quizStart()
+// quizStart()
 
-// function to check the answer (if statement -5 from time if incorrect)
 // function set interval (change inner.text to time left) (if timeleft = 0 || if index >= 5 then (then show form and end quiz))
-// start a function to count down time
