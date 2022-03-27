@@ -1,6 +1,12 @@
-var timeLeft = 60
-var timer = document.getElementById('timer')
+var timeLeft = 3
+var time =timeLeft
+var intervalId
+var timerEl = document.getElementById('timer')
+
+score = 0
+
 var startButton = document.getElementById('startBtn')
+
 var index = 0
 var questionEl = document.getElementById('question')
 var Option1= document.getElementById('option1')
@@ -92,6 +98,35 @@ function displayQuestions() {
     Option3.innerText =question[index].Option3
     Option4.innerText =question[index].Option4
 }
+
+function gameOver() {
+    clearInterval(intervalId)
+    var name = prompt('What is your name?')
+    var data = {Name: name, score: score}
+    localStorage.setItem('QuizMaster', JSON.stringify(data))
+
+    var playAgain = confirm('Want to try again?')
+    if (playAgain) {
+        window.location.reload()
+    }
+}
+
+function startTimer(){
+    intervalId = setInterval(function () {
+        time --
+        timerEl.innerText = "timer " + time
+        if (time === 0) {
+            clearInterval(intervalId)
+            gameOver()
+        }
+    }, 1000)
+}
+
+function quizStart() {
+    startTimer()
+}
+
+quizStart()
 
 // function to check the answer (if statement -5 from time if incorrect)
 // function set interval (change inner.text to time left) (if timeleft = 0 || if index >= 5 then (then show form and end quiz))
